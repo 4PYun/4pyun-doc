@@ -13,6 +13,7 @@
 2019-10-16 新增长期免费券
 2019-10-31 固定车返回信息新增车主地址、车位号信息
 2019-11-01 完善固定车续费接口
+2019-11-09 新增支付来源
 ```
 
 ## 目录
@@ -217,7 +218,8 @@ P云为停车场提供月卡/次卡/储值卡续费的移动支付方案.
 | pay_time | string | Y | 支付时间, 格式:`yyyyMMddHHmmss`. |
 | value | int | Y | 支付金额(单位分) . |
 | pay_origin | int | Y | 值 含义<br/>0    P云<br/>4   支付宝<br/>8    微信<br/>-     兼容其他未定义|
-| pay_origin_desc | string | Y | 支付来源说明, 例如:P云|
+| pay_origin_desc | string | Y | 支付到账说明, 例如:P云|
+| pay_source | string | Y | 付款来源, 例如: 微信/支付宝/银联 |
 
 *请求示例*
 ```json
@@ -228,6 +230,7 @@ P云为停车场提供月卡/次卡/储值卡续费的移动支付方案.
   "parking_serial":"8c598afd-2cb8-4cec-8f73-4fd4391d2fc6",
   "pay_origin":"4",
   "pay_origin_desc":"支付宝",
+  "pay_source": "支付宝",
   "pay_serial":"20181130105240075500112137",
   "pay_time":"20181130105250",
   "service":"service.parking.payment.result",
