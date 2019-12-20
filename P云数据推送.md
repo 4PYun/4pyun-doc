@@ -11,6 +11,8 @@
 | 2019-07-08 | 初始编写                             |
 | 2019-09-25 | 新增标准支付通知接口 |
 | 2019-10-10 | 新增电子发票信息推送 |
+| 2019-10-17 | 优化电子发票信息推送参数 |
+| 2019-12-13 | 订单推送增加第三方优惠信息（积分+卡券） |
 
 ### 目录
 
@@ -143,14 +145,27 @@
 - 描述
 - 请求参数
 
-| 字段           | 类型   | 必须 | 说明               |
-| -------------- | ------ | ---- | ------------------ |
-| park_uuid      | string | Y    | 平台停车场编号     |
-| park_name      | string | Y    | 平台停车场名称     |
-| parking_serial | string | Y    | 平台停车流水       |
-| pay_serial     | string | Y    | 平台支付流水       |
-| pay_value      | string | Y    | 支付金额，单位：分 |
-| pay_time       | string | Y    | 支付时间戳，毫秒   |
+| 字段           | 类型      | 必须 | 说明               |
+| -------------- | -------- | ---- | ------------------ |
+| park_uuid      | string   | Y    | 平台停车场编号     |
+| park_name      | string   | Y    | 平台停车场名称     |
+| parking_serial | string   | Y    | 平台停车流水       |
+| pay_serial     | string   | Y    | 平台支付流水       |
+| pay_value      | string   | Y    | 支付金额，单位：分 |
+| pay_time       | string   | Y    | 支付时间戳，毫秒   |
+| discounts      | object[] | Y    | 优惠信息集   |
+
+**Discount**
+
+| 字段            | 类型   | 必须  | 说明 |
+| -------------- | ------ | ---- | ----- |
+| type           | string | Y    | 优惠类型，参考：com.chinaroad.api.v1.parking.DiscountType |
+| token          | string | Y    | 优惠凭证令牌 |
+| openid         | string | Y    | 用户ID |
+| mobile         | string | Y    | 手机号 |
+| relief_amount  | string | Y    | 抵扣数量 |
+| relief_value   | string | Y    | 抵扣金额(分) |
+
 
 - 响应参数
 
@@ -165,35 +180,44 @@
 - 描述
 - 请求参数
 
-| 字段        | 类型     | 必须 | 说明                   |
-| ----------- | -------- | ---- | ---------------------- |
-| serial      | string   | Y    | 平台发票唯一标识       |
-| plate_desc  | string   | Y    | 参与开票的车牌多个车牌 |
-| create_time | string   | Y    | 用户提交开票时间       |
-| buyer       | object   | Y    | 购方车主信息           |
-| seller      | object   | Y    | 销售方物业信息         |
-| third       | object   | Y    | 发票公司返回数据       |
-| payment     | object[] | Y    | 开票相关联的支付信息   |
+| 字段           | 类型     | 必须 | 说明                                                    |
+| -------------- | -------- | ---- | ------------------------------------------------------- |
+| invoice_id     | string   | Y    | P云发票唯一标识                                         |
+| create_time    | string   | Y    | 用户提交开票时间                                        |
+| subject        | string   | Y    | 开票内容                                                |
+| verify_code    | string   | Y    | 发票校验码                                              |
+| obtain_value   | string   | Y    | 开票金额, 单位分                                        |
+| request_serial | string   | Y    | 请求流水                                                |
+| invoice_code   | string   | Y    | 发票代码                                                |
+| invoice_no     | string   | Y    | 发票号码                                                |
+| result_time    | string   | Y    | 开票成功时间                                            |
+| tax_type       | string   | Y    | 类型, 参考: com.chinaroad.api.v1.parking.InvoiceTaxType |
+| red_rush       | string   | Y    | 红冲状态, 参考: com.chinaroad.api.v1.consts.Bool        |
+| remark         | string   | Y    | 开票备注                                                |
+| identity       | string   | Y    | 用户ID                                                  |
+| buyer          | object   | Y    | 购买方 `InvoiceBuyer`                                   |
+| seller         | object   | Y    | 销售方 `InvoiceSeller`                                  |
+| goods_list     | object[] | Y    | 销售商品 `ParkingInvoiceGoods`                          |
 
-**Buyer**
+**InvoiceBuyer**
 
-| 字段            | 类型   | 必须 | 说明               |
-| --------------- | ------ | ---- | ------------------ |
-| tax_no          | string | Y    | 税号               |
-| company_name    | string | Y    | 公司名称           |
-| tax_type        | string | Y    | 类型 1:企业 2:个人 |
-| email           | string | Y    | 邮箱               |
-| mobile          | string | Y    | 手机号             |
-| company_mobile  | string | Y    | 公司电话           |
-| company_address | string | Y    | 公司地址           |
+| 字段              | 类型   | 必须 | 说明                                                         |
+| ----------------- | ------ | ---- | ------------------------------------------------------------ |
+| tax_no            | string | Y    | 税号                                                         |
+| tax_type          | string | Y    | 类型 1:企业 2:个人 com.chinaroad.api.v1.parking.InvoiceTaxType |
+| email             | string | Y    | 邮箱                                                         |
+| telephone         | string | Y    | 联系电话                                                     |
+| company_name      | string | Y    | 公司名称                                                     |
+| company_telephone | string | Y    | 公司电话                                                     |
+| company_address   | string | Y    | 公司地址                                                     |
 
-**Seller**
+**InvoiceSeller**
 
 | 字段         | 类型   | 必须 | 说明     |
 | ------------ | ------ | ---- | -------- |
 | tax_no       | string | Y    | 税号     |
 | address      | string | Y    | 地址     |
-| mobile       | string | Y    | 电话     |
+| telephone    | string | Y    | 电话     |
 | bank_name    | string | Y    | 银行名称 |
 | bank_account | string | Y    | 银行账户 |
 | drawer       | string | Y    | 开票人   |
@@ -202,32 +226,20 @@
 | tax_rate     | string | Y    | 税率     |
 | product_no   | string | Y    | 商品编码 |
 
-**Third**
+**ParkingInvoiceGoods**
 
-| 字段         | 类型   | 必须 | 说明                           |
-| ------------ | ------ | ---- | ------------------------------ |
-| serial       | string | Y    | 请求流水                       |
-| check_code   | string | Y    | 验证码                         |
-| third_code   | string | Y    | 发票代码                       |
-| third_serial | string | Y    | 发票号码                       |
-| obtain_value | string | Y    | 开票金额                       |
-| url          | string | Y    | pdf 链接                       |
-| remark       | string | Y    | 备注                           |
-| success_time | string | Y    | 开票成功时间                   |
-| red_type     | int    | Y    | 红冲状态 0代表非红冲 1代表红冲 |
-| tax_type     | int    | Y    | 开票类型 1:企业 2:个人         |
+| 字段         | 类型   | 必须 | 说明                                                         |
+| ------------ | ------ | ---- | ------------------------------------------------------------ |
+| business     | string | Y    | ```临时车或者月卡 临时车缴费:car:parking:cashier,月卡充值:car:parking:recharge``` |
+| plate        | string | Y    | 车牌号                                                       |
+| park_uuid    | string | Y    | 车场ID                                                       |
+| park_name    | string | Y    | 车场名称                                                     |
+| merchant     | string | Y    | 车场商户号                                                   |
+| pay_serial   | string | Y    | 支付流水                                                     |
+| value        | string | Y    | 订单金额，分                                                 |
+| pay_value    | string | Y    | 支付金额，分                                                 |
+| obtain_value | string | Y    | 开票金额，分                                                 |
 
-**InvoicePayment**
-
-| 字段       | 类型   | 必须 | 说明                                                         |
-| ---------- | ------ | ---- | ------------------------------------------------------------ |
-| business   | string | Y    | ```临时车或者月卡 临时车缴费:car:parking:cashier,月卡充值:car:parking:recharge``` |
-| plate      | string | Y    | 车牌                                                         |
-| park_uuid  | string | Y    | 停车场唯一id                                                 |
-| merchant   | string | Y    | 商户号                                                       |
-| pay_serial | string | Y    | 支付流水                                                     |
-| value      | int    | Y    | 订单金额                                                     |
-| pay_value  | int    | Y    | 支付金额                                                     |
 
 - 响应参数
 
@@ -240,65 +252,64 @@
 
 ```
 {
-    "seller": {
-        "payee": "韩梅梅",
-        "address": "深圳市南山区粤海街道科技园讯美科技广场3号楼",
-        "tax_no": "1570863273859",
-        "mobile": "0755-86261859",
-        "bank_name": "中国农业银行",
-        "drawer": "李雷",
-        "reviewer": "韩梅梅",
-        "product_no": "1570863273859",
-        "tax_rate": "0",
-        "bank_account": "1234567890"
+    "app_id": "op660pp",
+    "buyer": {
+        "company_address": "广东省深圳市南山区",
+        "company_name": "深圳市神州路路通网络科技有限公司",
+        "company_telephone": "19925333063",
+        "email": "dev@660pp.com",
+        "tax_no": "1571280012061",
+        "tax_type": "1",
+        "telephone": "19925333063"
     },
-    "create_time": "2019-10-12 14:54:33",
-    "third": {
-        "third_code": "1570863273860",
-        "serial": "1570863273860",
-        "tax_type": 1,
-        "check_code": "1570863273860",
-        "red_type": 1,
-        "remark": "REMARK",
-        "third_serial": "1570863273860",
-        "success_time": "2019-10-12 14:54:33",
-        "obtain_value": "1000",
-        "url": "http://660pp.net"
-    },
-    "serial": "1570863273857",
-    "sign": "DF4E35D0E6B3434A2D70FB29BF999ECC",
-    "payment": [
+    "create_time": 1571280012056,
+    "goods_list": [
         {
-            "park_uuid": "49f0cc52-e8c7-41e3-b54d-af666b8cc11a",
             "business": "car:parking:cashier",
-            "pay_serial": "1570863273862",
-            "pay_value": 60000,
-            "merchant": "62626601",
-            "plate": "川A660P1",
-            "value": 60000
+            "merchant": "62662601",
+            "pay_serial": "1571280012063",
+            "pay_value": 10000,
+            "value": 10000
         },
         {
-            "park_uuid": "49f0cc52-e8c7-41e3-b54d-af666b8cc11a",
             "business": "car:parking:cashier",
-            "pay_serial": "1570863273862",
-            "pay_value": 40000,
-            "merchant": "62626601",
-            "plate": "川A660P2",
-            "value": 40000
+            "merchant": "62662601",
+            "pay_serial": "1571280012063",
+            "pay_value": 20000,
+            "value": 20000
+        },
+        {
+            "business": "car:parking:cashier",
+            "merchant": "62662601",
+            "pay_serial": "1571280012063",
+            "pay_value": 15000,
+            "value": 15000
         }
     ],
-    "app_id": "op660pp",
-    "sign_type": "MD5",
-    "buyer": {
-        "tax_no": "1570863273858",
-        "tax_type": "1",
-        "company_name": "深圳市神州路路通网络科技有限公司",
-        "mobile": "0755-86261859",
-        "email": "dev@660pp.com",
-        "company_mobile": "0755-86261859",
-        "company_address": "深圳市南山区粤海街道科技园讯美科技广场3号楼"
+    "invoice_code": "1571280012056",
+    "invoice_id": "1571280012056",
+    "invoice_no": "1571280012056",
+    "obtain_value": 10000,
+    "red_rush": 1,
+    "remark": "REMARK",
+    "request_serial": "1571280012056",
+    "result_time": 1571280012056,
+    "seller": {
+        "address": "广东省深圳市",
+        "bankAccount": "1571280012062",
+        "bankName": "中国农业银行",
+        "operator": "张三",
+        "payee": "李四",
+        "productNo": "1571280012062",
+        "reviewer": "李雷",
+        "taxNo": "1",
+        "taxRate": "0",
+        "telephone": "19925333063"
     },
-    "timestamp": "1570863273873"
+    "subject": "1571280012056",
+    "tax_type": 0,
+    "timestamp": 1571280012063,
+    "verify_code": "1571280012056"
 }
 ```
 
@@ -316,11 +327,13 @@
 | 字段           | 类型   | 必须 | 说明               |
 | -------------- | ------ | ---- | ------------------ |
 | merchant      | string | Y    | 商户号     |
-| order      | string | Y    | 支付订单号     |
+| pay_order      | string | Y    | 支付订单号     |
 | channel | string | Y    | 支付渠道       |
 | pay_serial     | string | Y    | 平台支付流水       |
 | value      | string | Y    | 支付金额，单位：分 |
 | status      | short | Y    | 交易状态: 1支付成功、-1失败、0支付中 |
+| trade_time|long | Y | 交易时间, 单位ms|
+| pay_mode|short|Y|到账方式, 参考附录|
 
 - 响应参数
 
@@ -344,7 +357,7 @@
 
 #### B 车牌颜色 `plate_color`
 
-| 颜色值 | 说明 |
+| 值 | 说明 |
 | ------ | ---- |
 | -1     | 未知 |
 | 1      | 蓝色 |
@@ -355,7 +368,7 @@
 
 #### C 车类 `car_type`
 
-| 颜色值 | 说明           |
+| 值 | 说明           |
 | ------ | -------------- |
 | -1     | 未知           |
 | 1      | 临停车辆       |
@@ -363,3 +376,34 @@
 | 3      | 贵宾，免费车辆 |
 | 4      | 储值车辆       |
 
+#### `InvoiceTaxType`
+
+| 值   | 说明         |
+| ---- | ------------ |
+| 0    | 线下标记开票 |
+| 1    | 企业开票     |
+| 2    | 个人开票     |
+
+#### `Bool`
+
+| 值   | 说明 |
+| ---- | ---- |
+| 0    | No   |
+| 1    | Yes  |
+
+#### `Business`
+
+| 值                     | 说明         |
+| ---------------------- | ------------ |
+| `car:parking:cashier`  | 停车场中支付 |
+| `car:parking:recharge` | 月卡充值     |
+
+#### `DiscountType`
+
+| 值                     | 说明         |
+| ---------------------- | ------------ |
+| 1 | 金额优惠 |
+| 2 | 时间优惠 |
+| 3 | 全免类型优惠 |
+| 4 | 不同计价优惠 |
+| 5 | 长期有效券 |
