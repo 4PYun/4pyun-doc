@@ -13,12 +13,14 @@
 | 2019-10-10 | 新增电子发票信息推送 |
 | 2019-10-17 | 优化电子发票信息推送参数 |
 | 2019-12-13 | 订单推送增加第三方优惠信息（积分+卡券） |
+| 2020-06-01 | 新增月卡续费订单推送 |
 
 ### 目录
 
 - <a href="#parking_enter">入场推送</a>
 - <a href="#parking_leave">出场推送</a>
 - <a href="#parking_payment">支付记录推送</a>
+- <a href="#parking_recharge">月卡续费记录推送</a>
 - <a href="#parking_invoice">电子发票推送</a>
 
 ### 1 接口约定
@@ -175,7 +177,35 @@
 | message | string | N    | 业务处理状态说明 |
 | hint | string | N    | 提示说明 |
 
-#### <a id="parking_invoice">2.4 电子发票推送</a>
+#### <a id="parking_recharge">2.4 月卡续费记录通知</a>
+
+- 描述
+- 请求参数
+
+| 字段           | 类型      | 必须 | 说明               |
+| -------------- | -------- | ---- | ------------------ |
+| park_uuid      | string   | Y    | 平台停车场编号     |
+| park_name      | string   | Y    | 平台停车场名称     |
+| pay_serial     | string   | Y    | 平台支付流水       |
+| pay_value      | string   | Y    | 支付金额，单位：分 |
+| pay_time       | string   | Y    | 支付时间戳，毫秒   |
+| plate       | string   | Y    | 车牌号   |
+| quantity       | int   | Y    | 续费数量，月卡:月份数，储值卡:续费金额(分)   |
+| vip_type       | int   | Y    | 月卡类型(见附录) |
+| start_time | string   | N | 时间类固定车续费开始时间 |
+| end_time | string   | N | 时间类固定车续费结束时间 |
+
+
+- 响应参数
+
+| 字段    | 类型   | 必须 | 说明             |
+| ------- | ------ | ---- | ---------------- |
+| code    | string | Y    | 业务处理状态码   |
+| message | string | N    | 业务处理状态说明 |
+| hint | string | N    | 提示说明 |
+
+
+#### <a id="parking_invoice">2.5 电子发票推送</a>
 
 - 描述
 - 请求参数
@@ -407,3 +437,16 @@
 | 3 | 全免类型优惠 |
 | 4 | 不同计价优惠 |
 | 5 | 长期有效券 |
+
+#### `VipType`
+
+| 值                     | 说明         |
+| ---------------------- | ------------ |
+| 1 | 包月车 |
+| 2 | 储值卡 |
+| 3 | 次卡 |
+| 4 | 储天卡 |
+| 5 | 年卡 |
+| 6 | 季度卡 |
+| 7 | 半年卡 |
+| 0 | 免费 |
