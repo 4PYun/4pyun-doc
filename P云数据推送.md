@@ -15,6 +15,7 @@
 | 2019-12-13 | 订单推送增加第三方优惠信息（积分+卡券） |
 | 2020-06-01 | 新增月卡续费订单推送 |
 | 2020-06-11 | 新增电子发票状态同步 |
+| 2020-12-11 | 支付同步新增`pay_mode_desc` |
 
 ### 目录
 
@@ -26,7 +27,7 @@
  - <a href="#parking_payment">2.4 支付记录推送</a>
  - <a href="#parking_recharge">2.5 月卡续费记录推送</a>
 - <a href="#payment_apis">3 支付业务</a>
- - <a href="#payment_sync">3.1 聚合支付结果同步</a>
+ - <a href="#payment_sync">3.1 支付结果同步</a>
 - <a href="#invoice_apis">4 电子发票</a>
  - <a href="#invoice_sync">4.1 电子发票状态同步</a>
 
@@ -366,6 +367,7 @@ app_id=op88641899bd20661&car_type=1&enter_time=1563242533431&park_uuid=40e06b24-
 | status| short | Y | 交易状态: 1支付成功、-1失败、0支付中 |
 | trade_time|long | Y | 交易时间, 单位ms|
 | pay_mode|short|Y|到账方式, 参考附录|
+| pay_mode_desc|string|Y|到账方式描述, 例如: 微信、支付宝|
 
 - 响应参数
 

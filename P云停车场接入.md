@@ -25,6 +25,7 @@
 2020-10-12 新增通道管控接口
 2020-10-22 优惠券失效时间
 2020-11-26 获取订单新增`charge_type`可控制缴费规则
+2020-12-23 修正关于多次进出券时间描述为入场开始。
 ```
 
 ## 目录
@@ -938,9 +939,9 @@ P云发起请求, 将指定车辆从车场固定车移除
 | plate | string | N | 车牌号码 |
 | start_time | string | Y | 预约开始时间, 格式: `yyyyMMddHHmmss` |
 | end_time | string | Y | 预约结束时间, 格式: `yyyyMMddHHmmss` |
-| mobile | string | Y | 联系电话 |
-| realname | string | Y | 车主姓名 |
-| reason | string | Y | 预约原因 |
+| mobile | string | N | 联系电话 |
+| realname | string | N | 车主姓名 |
+| reason | string | N | 预约原因 |
 | pay_serial | string | N | 预约支付流水 |
 | pay_value | string | N | 支付金额, 单位分 |
 
@@ -976,7 +977,7 @@ P云发起请求, 将指定车辆从车场固定车移除
 | park_uuid | string | Y | 停车场编号 |
 | apply_no | string | Y | 预约单号 |
 | plate | string | N | 车牌号码 |
-| reason | string | Y | 取消原因 |
+| reason | string | N | 取消原因 |
 
 **应答参数:**
 
