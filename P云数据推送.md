@@ -16,6 +16,7 @@
 | 2020-06-01 | 新增月卡续费订单推送 |
 | 2020-06-11 | 新增电子发票状态同步 |
 | 2020-12-11 | 支付同步新增`pay_mode_desc` |
+| 2020-12-29 | 停车场出入场推送新增车场信息 |
 
 ### 目录
 
@@ -99,6 +100,11 @@ app_id=op88641899bd20661&car_type=1&enter_time=1563242533431&park_uuid=40e06b24-
 | 字段 | 类型| 必须 | 说明 |
 | --- | --- | --- | --- |
 | park_uuid| string | Y | 平台停车场编号 |
+| park_name| string | Y | 平台停车场名称 |
+| address| string | Y | 平台停车场地址 |
+| area_code| string | Y | 平台停车场区域编码 |
+| latitude| string | Y | 纬度(百度) |
+| longitude| string | Y | 经度(百度) |
 | parking_serial | string | Y | 平台停车流水表示（record_id） |
 | plate | string | Y | 车牌 |
 | plate_color | string | Y | 车牌颜色（见附录）|
@@ -126,6 +132,11 @@ app_id=op88641899bd20661&car_type=1&enter_time=1563242533431&park_uuid=40e06b24-
 | 字段 | 类型| 必须 | 说明 |
 | --- | --- | --- | --- |
 | park_uuid| string | Y | 平台停车场编号 |
+| park_name| string | Y | 平台停车场名称 |
+| address| string | Y | 平台停车场地址 |
+| area_code| string | Y | 平台停车场区域编码 |
+| latitude| string | Y | 纬度(百度) |
+| longitude| string | Y | 经度(百度) |
 | parking_serial | string | Y | 平台停车流水表示（record_id） |
 | plate | string | Y | 车牌 |
 | plate_color | string | Y | 车牌颜色（见附录）|
