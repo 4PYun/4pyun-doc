@@ -166,7 +166,7 @@ P云为停车场提供月卡/次卡/储值卡续费的移动支付方案.
 |service | string | Y | 服务名: `service.parking.payment.billing`|
 | version| string | Y | 版本号:`1.0`|
 | charset| string | Y | 字符集:`UTF-8`|
-|result_code | string | Y | 状态码:<br/>值 含义<br/>1001  订单获取成功, 业务参数将返回.<br/>1002  未查询到停车信息.<br/>1003  月卡车辆, 不允许支付.<br/>1401  签名错误, 请检查配置.<br/>1500  接口处理异常. |
+|result_code | string | Y | 状态码:<br/>值 含义<br/>1001  订单获取成功, 业务参数将返回.<br/>1002  未查询到停车信息.<br/>1003  固定车辆, 不允许支付(有效期内返回, 过期不返回此状态).<br/>1401  签名错误, 请检查配置.<br/>1500  接口处理异常. |
 |message | string | Y | 状态码处理描述, 如:返回错误信息.|
 | sign | string | Y | 签名|
 
@@ -241,7 +241,8 @@ P云为停车场提供月卡/次卡/储值卡续费的移动支付方案.
 | plate | string | N | 车牌号码, 当无牌车付费入场时为虚拟车牌. |
 | pay_serial | string | Y | P云支付流水, 对账可用. |
 | pay_time | string | Y | 支付时间, 格式:`yyyyMMddHHmmss`. |
-| value | int | Y | 支付金额(单位分) . |
+| value | int | Y | 支付金额(单位分), 不含优惠金额 . |
+| free_value | int | N | 优惠金额(单位分) . |
 | pay_origin | int | Y | 值 含义<br/>0    P云<br/>4   支付宝<br/>8    微信<br/>-     兼容其他未定义|
 | pay_origin_desc | string | Y | 支付到账说明, 例如:P云|
 | pay_source | string | N | 付款来源, 例如: 微信/支付宝/银联 |
