@@ -453,12 +453,13 @@ app_id=op88641899bd20661&car_type=1&enter_time=1563242533431&park_uuid=40e06b24-
 
 - 请求参数
 
-| 字段      | 类型   | 必须 | 说明         |
+ | 字段      | 类型   | 必须 | 说明         |
 | --------- | ------ | ---- | ------------ |
 | user_code | string | Y    | 用户唯一标识 |
-| mobile | string | N    | 手机号 |
-| quantity  | int    | Y    | 券数量       |
-| value     | int    | Y    | 券面值       |
+| mobile    | string | N    | 手机号       |
+| status    | short  | Y    | 状态，1已核销 |
+| bonus_id  | string  | Y    | 奖励优惠券ID  |
+| value  | int  | Y    | 核销金额     |
 
 - 响应参数
 
