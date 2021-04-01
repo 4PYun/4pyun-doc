@@ -653,6 +653,19 @@ P云发起向停车场, 查询指定车辆固定车信息, 停车场返回对应
 
 <font color='red'>注: 若月卡当前到期则balance=0, 若昨天过期balance=-1, 按照此规则计算</font>
 
+*应答示例*
+
+```json
+{
+  "result_code" : "1001",
+  "service" : "service.parking.vip.query",
+  "vips" : "[{\"balance\":0,\"card_id\":\"10760\",\"card_no\":\"100766\",\"charge_desc\":\"包月车_小型车\",\"charge_price\":20000,\"charge_type\":\"22\",\"create_time\":\"20210401090814\",\"expire_time\":\"20210401235959\",\"id_card\":\"511622199108272837\",\"mobile\":\"13632693491\",\"plate\":\"粤BN1B64\",\"realname\":\"唐泽轩\",\"type\":1}]\n",
+  "charset" : "UTF-8",
+  "message" : "O.K.",
+  "version" : "1.0"
+}
+```
+
 ### 6.2 车辆续费通知
 
 **协议说明:**
@@ -815,6 +828,20 @@ P云发起请求, 查询车场固定车收费标准
 | 字段 | 类型 | 必须 | 说明|
 | --- | --- | --- | --- |
 | row | array | N | 收费类型集合, 对象参考后面收费类型信息. |
+
+
+*应答示例*
+
+```json
+{
+  "service" : "service.parking.charge_type.list",
+  "row" : "[{\"id\":\"21\",\"name\":\"测试月租A\",\"vip_type\":1,\"desc\":\"测试月租A\",\"price\":2,\"extra_days\":0,\"create_time\":\"20210329151159\",\"update_time\":\"20210329151159\"},{\"id\":\"22\",\"name\":\"测试月租B\",\"vip_type\":1,\"desc\":\"测试月租B\",\"price\":101,\"extra_days\":0,\"create_time\":\"20210329142253\",\"update_time\":\"20210329142253\"},{\"id\":\"37\",\"name\":\"储值车头\",\"vip_type\":2,\"desc\":\"储值车头\",\"price\":3,\"extra_days\":0,\"create_time\":\"20210329151207\",\"update_time\":\"20210329151207\"},{\"id\":\"52\",\"name\":\"储值挂车-H\",\"vip_type\":2,\"desc\":\"储值挂车-H\",\"price\":5,\"extra_days\":0,\"create_time\":\"20210329163302\",\"update_time\":\"20210329163302\"},{\"id\":\"61\",\"name\":\"月租挂车-H\",\"vip_type\":1,\"desc\":\"月租挂车-H\",\"price\":6,\"extra_days\":0,\"create_time\":\"20210329163307\",\"update_time\":\"20210329163307\"},{\"id\":\"1\",\"name\":\"时租车A-H\",\"vip_type\":1,\"desc\":\"时租车A-H\",\"price\":1,\"extra_days\":0,\"create_time\":\"20210329151028\",\"update_time\":\"20210329151028\"},{\"id\":\"2\",\"name\":\"时租车B-H\",\"vip_type\":1,\"desc\":\"时租车B-H\",\"price\":4,\"extra_days\":0,\"create_time\":\"20210329153052\",\"update_time\":\"20210329153052\"},{\"id\":\"3\",\"name\":\"时租车C-H\",\"vip_type\":1,\"desc\":\"时租车C-H\",\"price\":9900,\"extra_days\":0,\"create_time\":\"20210329113215\",\"update_time\":\"20210329113215\"},{\"id\":\"6\",\"name\":\"时租车F-H\",\"vip_type\":1,\"desc\":\"时租车F-H\",\"price\":10,\"extra_days\":0,\"create_time\":\"20210329145417\",\"update_time\":\"20210329145417\"},{\"id\":\"46\",\"name\":\"贵宾车-H\",\"vip_type\":0,\"desc\":\"贵宾车-H\",\"price\":0,\"extra_days\":0,\"create_time\":\"20210329165501\",\"update_time\":\"20210329165501\"}]",
+  "result_code" : "1001",
+  "charset" : "UTF-8",
+  "message" : "操作成功",
+  "version" : "1.0"
+}
+```
 
 **收费类型信息:**
 
