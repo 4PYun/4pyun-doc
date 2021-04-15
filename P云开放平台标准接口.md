@@ -1,4 +1,4 @@
-## P云开放数据推送接口
+## P云开放平台标准接口
 
 > 技术支持：dev@660pp.com
 >
@@ -18,6 +18,7 @@
 | 2020-12-11 | 支付同步新增`pay_mode_desc`             |
 | 2020-12-29 | 停车场出入场推送新增车场信息            |
 | 2021-03-01 | 新增奖励优惠券接口                      |
+| 2021-04-14 | 新增用户OAuth授权验证接口                      |
 
 ### 目录
 
@@ -32,9 +33,14 @@
  - <a href="#payment_sync">3.1 支付结果同步</a>
 - <a href="#invoice_apis">4 电子发票</a>
  - <a href="#invoice_sync">4.1 电子发票状态同步</a>
-- <a href="#bonus_apis">5 奖励优惠券</a>
- - <a href="#bonus_percheck">5.1 奖励优惠券领取校验</a>
+ - <a href="#bonus_apis">5 奖励优惠券</a>
+ - <a href="#bonus_precheck">5.1 奖励优惠券领取校验</a>
  - <a href="#bonus_grant">5.2 奖励优惠券领取通知</a>
+ - <a href="#bonus_apply">5.3 奖励优惠券使用通知</a>
+ - <a href="#bonus_apis">6 用户服务</a>
+ - <a href="#bonus_precheck">6.1 用户信息查询</a>
+
+
 
 ### <a id="api_spec">1 接口约定</a>
 
@@ -403,7 +409,7 @@ app_id=op88641899bd20661&car_type=1&enter_time=1563242533431&park_uuid=40e06b24-
 
 | 字段          | 类型   | 必须 | 说明                              |
 | ------------- | ------ | ---- | --------------------------------- |
-| fields        | map    | Y    | 商户号                            |
+| merchant      | string | Y    | 商户号                            |
 | obtain_order  | string | Y    | 合作方开票请求订单                |
 | obtain_serial | string | Y    | 平台方开票唯一标识                |
 | status        | short  | Y    | 开票状态: 2 开票成功、-1 开票失败 |
@@ -422,20 +428,23 @@ app_id=op88641899bd20661&car_type=1&enter_time=1563242533431&park_uuid=40e06b24-
 | message | string | N    | 业务处理状态说明 |
 | hint    | string | N    | 提示说明         |
 
-
 ### <a id="bonus_apis">5 奖励优惠券</a>
 
-#### <a id="bonus_percheck">5.1 奖励优惠券领取校验</a>
+#### <a id="bonus_precheck">5.1 奖励优惠券领取校验</a>
 
 - 描述
   合作方实现该接口，用于查询用户是否符合领券要求。
+
+- 请求方式
+
+  `POST`
 
 - 请求参数
 
 | 字段      | 类型   | 必须 | 说明         |
 | --------- | ------ | ---- | ------------ |
 | user_code | string | Y    | 用户唯一标识 |
-| mobile | string | N    | 手机号 |
+| mobile    | string | N    | 手机号       |
 
 - 响应参数
 
@@ -445,21 +454,26 @@ app_id=op88641899bd20661&car_type=1&enter_time=1563242533431&park_uuid=40e06b24-
 | message | string | N    | 业务处理状态说明 |
 | hint    | string | N    | 提示说明         |
 
-
-#### <a id="bonus_grant">5.2 奖励优惠券领取通知</a>
+####  <a id="bonus_grant">5.2 奖励优惠券领取通知</a>
 
 - 描述
   合作方实现该接口，用于通知用户领券结果。
 
+- 请求方式
+
+  `POST`
+
 - 请求参数
 
- | 字段      | 类型   | 必须 | 说明         |
-| --------- | ------ | ---- | ------------ |
-| user_code | string | Y    | 用户唯一标识 |
-| mobile    | string | N    | 手机号       |
-| status    | short  | Y    | 状态，1已核销 |
-| bonus_id  | string  | Y    | 奖励优惠券ID  |
-| value  | int  | Y    | 核销金额     |
+| 字段      | 类型   | 必须 | 说明                                      |
+| --------- | ------ | ---- | ----------------------------------------- |
+| user_code | string | Y    | 用户唯一标识                              |
+| mobile    | string | N    | 手机号                                    |
+| status    | short  | Y    | 状态，0未发放，1发放中，2已发放，-1已失效 |
+| bonus_id  | string | Y    | 奖励优惠券ID                              |
+| value     | int    | Y    | 奖励面额，单位分                          |
+| effect_time | timestamp | Y | 生效时间 |
+| expire_time | timestamp | Y | 失效时间 |
 
 - 响应参数
 
@@ -468,6 +482,68 @@ app_id=op88641899bd20661&car_type=1&enter_time=1563242533431&park_uuid=40e06b24-
 | code    | string | Y    | 业务处理状态码   |
 | message | string | N    | 业务处理状态说明 |
 | hint    | string | N    | 提示说明         |
+
+#### <a id="bonus_apply">5.3奖励优惠券使用通知</a>
+
+- 描述
+  合作方实现该接口，接受用户用券通知。
+
+  bonus_id和提交奖励事件参与申请的应答消息bonus节点的id属性具有关联性，
+
+  接口实现方匹配每条奖励记录进行核销结果处理
+
+- 请求方式
+
+  `POST`
+
+- 请求参数
+
+| 字段      | 类型      | 必须 | 说明          |
+| --------- | --------- | ---- | ------------- |
+| user_code | string    | Y    | 用户唯一标识  |
+| mobile    | string    | N    | 手机号        |
+| status    | short     | Y    | 状态，1已核销 |
+| bonus_id  | string    | Y    | 奖励优惠券ID  |
+| value     | int       | Y    | 核销金额      |
+| apply_time | timestamp | Y    | 核销时间      |
+
+- 响应参数
+
+| 字段    | 类型   | 必须 | 说明             |
+| ------- | ------ | ---- | ---------------- |
+| code    | string | Y    | 业务处理状态码   |
+| message | string | N    | 业务处理状态说明 |
+| hint    | string | N    | 提示说明         |
+
+
+### <a id="bonus_apis">6 用户服务</a>
+
+#### <a id="bonus_precheck">6.1 用户信息查询</a>
+
+- 描述
+  合作方实现该接口，用于验证查询用户基础信息。
+
+- 请求方式
+
+  `POST`
+
+- 请求参数
+
+| 字段      | 类型   | 必须 | 说明         |
+| --------- | ------ | ---- | ------------ |
+| oauth_code | string | Y    | OAuth授权码 |
+
+- 响应参数
+
+| 字段    | 类型   | 必须 | 说明             |
+| ------- | ------ | ---- | ---------------- |
+| code    | string | Y    | 业务处理状态码   |
+| message | string | N    | 业务处理状态说明 |
+| hint    | string | N    | 提示说明         |
+| account    | string | N    | 第三方账号 |
+| email    | string | N    | 邮箱 |
+| mobile    | string | N    | 手机号 |
+| nickname    | string | Y    | 昵称 |
 
 ### 附录
 
@@ -545,3 +621,12 @@ app_id=op88641899bd20661&car_type=1&enter_time=1563242533431&park_uuid=40e06b24-
 | 6    | 季度卡 |
 | 7    | 半年卡 |
 | 0    | 免费   |
+
+#### `UserGender`
+
+| 值   | 说明   |
+| ---- | ------ |
+| -1   | 其他  |
+| 0    | 女性 |
+| 1    | 男性 |
+| 99   | 未知 |
