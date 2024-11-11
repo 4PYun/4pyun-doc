@@ -5,7 +5,7 @@
 
 ### 1.1) 请求地址
 
-	https://api.4pyun.com/gate/1.0/parking/mcoupon/event/create
+	https://api.4pyun.com/gate/1.0/parking/mcoupon/event
 
 ### 1.2) 调用方式
 
