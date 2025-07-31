@@ -69,7 +69,8 @@ trade_scene=ENERGY 场景填写到extra字段
 | energy_code    | 充电类型。CN_AC=交流；CN_DC=直流；    | string | Y  |           |
 | device_type    | 设备类型。0=汽车；1=电瓶车；           |  int   | Y  |           |
 | plate          | 车牌号码                       | string | Y  |           |
-| identity       | 用户标识。可传手机号或用户ID            | string | Y  |           |
+| identity       | 用户标识。可传用户ID或手机号            | string | Y  |           |
+| mobile         | 手机号码                       | string | Y  |           |
 
 
 ####  I.III.I 充电业务交易事项
