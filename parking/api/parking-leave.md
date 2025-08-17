@@ -59,8 +59,7 @@
 | leave_time | 离场时间, 单位ms | string | Y | 1552976318722 |
 | leave_image | 离场图片路径 | string | N | https://files.4pyun.com/d/123566 |
 | leave_image_file | 离场图片文件 | string | N | 二进制文件流 |
-| leave_image_hash | 离场图片文件MD5哈希, 传递`leave_image_file`时候必须传递上传文件的哈希值。 | string | N | 37693CFC748049E45D87B8C7D8B9AACD
-37693CFC748049E45D87B8C7D8B9AACD |
+| leave_image_hash | 离场图片文件MD5哈希, 传递`leave_image_file`时候必须传递上传文件的哈希值。 | string | N | 37693CFC748049E45D87B8C7D8B9AACD |
 | leave_image_file | 离场图片文件 | string | N | 二进制文件流 |
 | leave_plate_image_file | 离场车牌图片文件 | string | N | 二进制文件流 |
 | leave_gate | 出口名称 | string | N | 西门出口 |
