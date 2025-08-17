@@ -46,9 +46,6 @@
 | enter_image| 入场图片路径, 任意路径  | string |  N   | 可访问云平台路径-->https://files.4pyun.com/d/123566 |
 | enter_image_file | 入场图片文件| string |  N   | 字节流   |
 | enter_image_hash | 入场图片文件MD5哈希, 传递`enter_image_file`时候必须传递上传文件的哈希值。 | string |  N   | XXXXXXX  |
-| enter_plate_image| 入场车牌图片路径, 任意路径 | string |  N   | https://files.4pyun.com/d/123566  |
-| enter_plate_image_file | 入场车牌图片文件  | string |  N   | 二进制文件流   |
-| enter_plate_image_hash | 入场车牌图片文件MD5哈希, 传递`enter_plate_image_file`时候必须传递上传文件的哈希值。 | string |  N   | XXXXXXX  |
 | enter_gate | 入口名称 | string |  N   | 东门入口 |
 | enter_security   | 入口保安 | string |  N   | 张三  |
 | car_type   | 车类: 1.临停车辆, 2.月卡车辆, 3.贵宾车辆(免费车), 4.储值车辆, 0.其他未知 | string |  Y   | 1  |
