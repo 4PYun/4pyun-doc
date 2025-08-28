@@ -72,8 +72,7 @@ function doRealPay(event) {
      */
     payment((reply) => {
         /**
-         * 参数说明（以下参数二选一）：
-         * - `depute_serial`：托收订单编号
+         * 参数说明：
          * - `depute_id`：托收订单ID, 交易预下单返回
          */
         let args = {
@@ -147,7 +146,7 @@ doRealPay(event) {
      */
     payment((reply) => {
         /**
-         * 参数说明
+         * 参数说明:
          * - `depute_id`：托收订单ID, 交易预下单返回
          */
         let args = {
