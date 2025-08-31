@@ -42,6 +42,7 @@ pyun.advertingPull({
     external: 1, // 必填，外部流量主标志：0 表示否，1 表示是（仅当 provider_code 非 P 云提供时设置为 1）
     personas: { // 选填，为精准投放传入业务参数
         plate: '粤BAAAAAA', // 车牌信息，至少包含前两位
+        trade_value: 100, // 交易金额, 用于提升广告投放点击率, 单位: 分
     },
     success: (data) => {
         // 广告加载成功回调

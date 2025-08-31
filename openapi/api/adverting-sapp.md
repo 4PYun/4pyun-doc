@@ -82,6 +82,7 @@
                 personas: {
                     mobile: '131xxxxxxxx',
                     plate: '粤BAAAAA',
+                    trade_value: 100, // 交易金额, 用于提升广告投放点击率, 单位: 分
                 }
             }
         }

@@ -7,6 +7,34 @@
 - [H5 JS-SDK接入](./adverting-jsapi.html)
 - [小程序广告组件接入](./adverting-jsapi.html)
 
+特别说明：
+由于券包业务特殊性需要流量主拉取广告必须传递当前原始订单交易金额`trade_value`保证广告投放效果！广告拉取示例:
+
+```js
+pyun.advertingPull({
+    el: 'image-banner', // 必填，广告节点的 ID
+    app_id: '由 P 云分配的接入应用 ID', // 必填
+    openid: '合作方用户 ID，用于精准投放追踪用户', // 选填
+    space_id: '由 P 云分配的广告位 ID', // 必填
+    displayed: 1, // 必填，是否展示广告
+    provider_code: '流量主编号', // 必填，项目流量主编号，兼容 P 云或客户内部项目编号
+    external: 1, // 必填，外部流量主标志：0 表示否，1 表示是（仅当 provider_code 非 P 云提供时设置为 1）
+    personas: { // 选填，为精准投放传入业务参数
+        plate: '粤BAAAAAA', // 车牌信息，至少包含前两位
+        trade_value: 100, // 交易金额, 用于提升广告投放点击率, 单位: 分
+    },
+    success: (data) => {
+        // 广告加载成功回调
+        console.log('广告加载成功:', data);
+    },
+    failure: (cause) => {
+        // 广告加载失败回调
+        console.warn('广告加载失败:', cause);
+    },
+});
+
+```
+
 ---
 
 # 1. 方法说明
