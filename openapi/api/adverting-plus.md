@@ -7,8 +7,11 @@
 - [H5 JS-SDK接入](./adverting-jsapi.html)
 - [小程序广告组件接入](./adverting-jsapi.html)
 
-特别说明：
-由于券包业务特殊性需要流量主拉取广告必须传递当前原始订单交易金额`trade_value`保证广告投放效果！广告拉取示例:
+**<font color="red">特别说明：</font>**
+
+由于券包业务特殊性需要流量主拉取广告必须传递当前原始订单交易金额`trade_value`保证广告投放效果！
+
+*广告拉取示例:*
 
 ```js
 pyun.advertingPull({
