@@ -23,6 +23,7 @@
 | pay_order     | string | Y    | 支付订单号                           |
 | channel       | string | Y    | 支付渠道                             |
 | pay_serial    | string | Y    | 平台支付流水                         |
+| trade_no    | string | Y    | 支付渠道(微信/支付宝)交易单号        |
 | value         | string | Y    | 支付金额，单位：分                   |
 | status        | short  | Y    | 交易状态: 1支付成功、-1失败、0支付中 |
 | trade_time    | long   | Y    | 交易时间, 单位ms                     |
