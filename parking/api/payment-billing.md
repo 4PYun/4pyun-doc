@@ -100,6 +100,7 @@
 | recharge_expire_days | int | N | 允许过期续费天数: <br/>`<0` 不支持月卡续费<br/>`=0` 支持月卡续费不支持过期续费<br/>`>0`表示允许过期x天续费<br/>`=7`表示允许过期7天内续费|
 | plate_type | int | N | 车牌类型: 0-中国大陆车牌, 1-境外车牌(含港澳), 2-两轮电动车车牌 |
 | plate_color | int | N | 车牌颜色: 1.蓝色, 2.黄色, 3.白色, 4.黑色, 5.绿色, -1 未知 |
+| next_time | string | N | 下次跳费时间, 格式`yyyyMMddHHmmss`.|
 
 *应答示例*
 ```json
