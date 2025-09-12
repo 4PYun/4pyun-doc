@@ -105,9 +105,11 @@ function doRealPay(event) {
         /**
          * 参数说明：
          * - `depute_id`：托收订单ID, 交易预下单返回
+         * - `divert_provider`: 引流流量主商户[非必填], 用于特殊场景传入, 编号需在P云平台创建
          */
         let args = {
             depute_id: reply.payload.pay_id,
+            divert_provider: '',
         };
 
         // STEP-2: 根据拦截结果跳转支付
@@ -179,9 +181,11 @@ doRealPay(event) {
         /**
          * 参数说明:
          * - `depute_id`：托收订单ID, 交易预下单返回
+         * - `divert_provider`: 引流流量主商户[非必填], 用于特殊场景传入, 编号需在P云平台创建
          */
         let args = {
             depute_id: reply.payload.pay_id,
+            divert_provider: '',
         };
 
         // STEP-2: 根据拦截结果跳转支付
