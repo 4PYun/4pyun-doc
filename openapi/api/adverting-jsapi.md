@@ -12,7 +12,7 @@
 - 切勿直接把文件保存本地引入将无法收到安全更新!!!
 
 ```html
-<script src="https://assets.4pyun.com/js/4pyun-sdk-1.1.1.min.js"></script>
+<script src="https://assets.4pyun.com/js/4pyun-sdk-1.1.2.min.js"></script>
 ```
 
 ---
