@@ -211,3 +211,27 @@ trade_scene=LIVING 场景填写到extra字段
 |----|---------|
 | 99 | 其他第三方渠道 |
 
+## <a id="energy_device_metadata">充电设备元数据</a>
+
+| 值                           | 描述                  |
+|-----------------------------|---------------------|
+| DEVICE_HARDWARE_VERSION     | 设备硬件版本              |
+| DEVICE_SOFTWARE_VERSION     | 设备软件版本              |
+| DEVICE_PROTOCOL_VERSION     | 设备通信协议版本            |
+| DEVICE_MODEL                | 设备型号                |
+| DEVICE_CHARGE_CURRENT       | 设备额定充电电流, 单位0.01A   |
+| DEVICE_CHARGE_VOLTAGE       | 设备额定充电电压下限, 单位0.01V |
+| DEVICE_CHARGE_VOLTAGE_UPPER | 设备额定充电电压上限, 单位0.01V |
+| DEVICE_CHARGE_POWER         | 设备额定充电功率, 单位0.0001W |
+| DEVICE_NET_TYPE             | 设备网络类型              |
+| DEVICE_SIM_ICCID            | 设备SIM卡ICCID         |
+| DEVICE_SIM_OPERATOR         | 设备SIM卡运营商           |
+
+## <a id="energy_replenish_metadata">充电订单元数据</a>
+
+| 值                     | 描述              |
+|-----------------------|-----------------|
+| ENERGY_CHARGE_CURRENT | 充电电流, 单位0.01A   |
+| ENERGY_CHARGE_VOLTAGE | 充电电压, 单位0.01V   |
+| ENERGY_CHARGE_POWER   | 充电功率, 单位0.0001W |
+
